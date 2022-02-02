@@ -4,14 +4,18 @@ import org.testng.annotations.Test;
 
 import util.DriverUtil;
 
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
-//To refresh the browser using get and navigate commands
-public class Testautomationclass05 {
+
+public class Testautomationclass04 {
 	WebDriver driver;
 	 
 	  @BeforeTest
@@ -25,25 +29,28 @@ public class Testautomationclass05 {
 	  public void afterTest() {
 		  driver.close();
 	  }
-  @Test
-  public void testMethod() {
-	  //navigate to home page
-	  driver.get("https://lkmdemoaut.accenture.com/TestMeApp/fetchcat.htm");
-	  System.out.println("Page Title: " + driver.getTitle());
-	  System.out.println("Page URL: " + driver.getCurrentUrl());
-	  //navigate to login page from home page
 	  
-	  driver.get("https://lkmdemoaut.accenture.com/TestMeApp/login.htm");
-	  System.out.println("Page Title: " + driver.getTitle());
-	  System.out.println("Page URL: " + driver.getCurrentUrl());
-	  //navigate back to home page
-	  
-	  driver.navigate().back();
-	  System.out.println("Page Title: " + driver.getTitle());
-	  System.out.println("Page URL: " + driver.getCurrentUrl());
-	  //refresh the browser
-	  
-	  driver.navigate().refresh();	  
-	  
-  }
+	  @Test
+	  public void productSearchUsingXpath() {
+		  driver.get("https://lkmdemoaut.accenture.com/TestMeApp/fetchcat.htm");
+		  driver.findElement(By.xpath("//a[@href='login.htm']")).click();
+		  driver.findElement(By.xpath("//input[@id='userName']")).sendKeys("testuser01");
+		  driver.findElement(By.xpath("//input[@type='password']")).sendKeys("pass123");
+		  driver.findElement(By.xpath("//input[@type='submit']")).click();
+		  //search for an element
+		  driver.findElement(By.xpath("//input[@id='myInput']")).sendKeys("Gift set");
+		  driver.findElement(By.xpath("//input[@value='FIND DETAILS']")).click();
+		  //click on Add to cart button
+		  driver.findElement(By.xpath("//a[@class='btn btn-success btn-product']")).click();
+		  //goto cart after adding the item
+		  driver.findElement(By.xpath("//a[@href='displayCart.htm']")).click();
+		  /*checking if product name in the shopping table(cart)
+		  is same as the one we added*/
+		  String productName = driver.findElement(By.xpath("//*[@id=\"cart\"]/tbody/tr/td[1]/div/div/h4")).getText();
+		  Assert.assertEquals(productName, "Gift set");
+		  //click on sign-out button
+		  driver.findElement(By.xpath("/html/body/header/div/b/a[2]")).click();
+		  
+	  }
+
 }
