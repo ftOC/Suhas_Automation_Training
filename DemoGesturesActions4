@@ -1,0 +1,47 @@
+package tests;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import util.DriverUtil;
+
+public class Gestures_Actions_4 {
+	WebDriver driver;
+	 
+	  @BeforeTest
+	  public void beforeTest() {
+		  driver=DriverUtil.getBroswerInstance("chrome");
+		  driver.get("https://lkmdemoaut.accenture.com/TestMeApp/fetchcat.htm#");
+		  driver.manage().window().maximize();  
+		  driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+	  }
+
+	  @AfterTest
+	  public void afterTest() {
+		  driver.close();
+	  }
+  @Test
+  public void TestAlertHandle() {
+	  driver.findElement(By.cssSelector("input[value='FIND DETAILS']")).click();
+	  //alert pop-up box will be triggered after this
+	  
+	  //the if-condition will activate only of alert box appears
+	  if(ExpectedConditions.alertIsPresent()!=null)
+	  {
+		  //switch to alert box
+		  Alert al = driver.switchTo().alert();
+		  //To validate if text on alert box is expected 
+		  Assert.assertEquals(al.getText(), "Please enter some product name");
+		  al.accept();
+	  }
+	  
+  }
+}
