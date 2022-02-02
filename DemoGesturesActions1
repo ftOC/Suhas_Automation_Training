@@ -1,0 +1,52 @@
+package tests;
+
+import org.testng.annotations.Test;
+
+import util.DriverUtil;
+
+import org.testng.annotations.BeforeTest;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.AfterTest;
+
+public class Gestures_Actions_1 {
+  
+  WebDriver driver;
+	 
+  @BeforeTest
+  public void beforeTest() {
+	  driver=DriverUtil.getBroswerInstance("chrome");
+	  driver.manage().window().maximize();  
+	  driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+  }
+
+  @AfterTest
+  public void afterTest() {
+	  driver.quit();
+  }
+
+
+@Test
+public void mouseHoverTest() {
+	driver.get("https://lkmdemoaut.accenture.com/TestMeApp/fetchcat.htm");
+	
+	Actions actions = new Actions(driver);
+	actions
+	.moveToElement(driver.findElement(By.xpath("//*[@id=\"menu3\"]/li[3]/a/span")))
+	.moveToElement(driver.findElement(By.xpath("//*[@id=\"menu3\"]/li[3]/ul/li/a/span")))
+	.moveToElement(driver.findElement(By.xpath("//*[@id=\"menu3\"]/li[3]/ul/li/ul/li[2]/a/span")))
+	.click()
+	.build().perform();
+	//x-path used here might look different from video as its directly copied
+	try {
+		Thread.sleep(3000);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+}
