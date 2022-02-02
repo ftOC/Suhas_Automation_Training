@@ -1,0 +1,67 @@
+package tests;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import util.DriverUtil;
+
+public class Gestuers_Actions_2 {
+	
+	 WebDriver driver;
+	 
+	  @BeforeTest
+	  public void beforeTest() {
+		  driver=DriverUtil.getBroswerInstance("chrome");
+		  driver.manage().window().maximize();  
+		  driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+	  }
+
+	  @AfterTest
+	  public void afterTest() {
+		  driver.quit();
+	  }
+
+  @Test
+  public void dragDropTest() {
+	  //accept cookie popup might disturb the execution but code is correct
+	  
+	  driver.get("https://demos.telerik.com/aspnet-ajax/treeview/examples/overview/defaultcs.aspx");
+	  // drag the element "Weekend Package"
+	  WebElement dragElement  = driver.findElement(By.xpath("//*[@id=\"ctl00_ContentPlaceholder1_RadTreeView1\"]/ul/li/ul/li[3]/ul/li[1]/div/div/span"));
+	  
+	  //drop it in "Price Checker" box	
+	  WebElement dropElement = driver.findElement(By.id("ctl00_ContentPlaceholder1_priceChecker"));
+	  
+	  //drag drop using actions
+	  Actions actions = new Actions(driver);
+	  actions.dragAndDrop(dragElement, dropElement).perform();
+	  
+	  try {
+		Thread.sleep(2000);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	 
+	  /*//to wait until message displayed in price checker box disappears
+	  WebDriverWait wait = new WebDriverWait(driver, 150);
+	  wait.until(ExpectedConditions.invisibilityOfElementWithText(By.id("ctl00_ContentPlaceholder1_Label1"), "Drop a package here to check price"));
+	  
+	  String text = driver.findElement(By.id("ctl00_ContentPlaceholder1_Label1")).getText();
+	  //to check if after dropping the message contains the following text
+	  Assert.assertTrue(text.contains("Weekend Package"));
+	  Assert.assertTrue(text.contains("$"));*/
+	  
+	  
+  }
+}
