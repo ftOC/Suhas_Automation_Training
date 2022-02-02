@@ -1,0 +1,49 @@
+package tests;
+
+import org.testng.annotations.Test;
+
+import util.DriverUtil;
+
+import org.testng.annotations.BeforeTest;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterTest;
+//To refresh the browser using get and navigate commands
+public class Testautomationclass05 {
+	WebDriver driver;
+	 
+	  @BeforeTest
+	  public void beforeTest() {
+		  driver=DriverUtil.getBroswerInstance("chrome");
+		  driver.manage().window().maximize();  
+		  driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+	  }
+
+	  @AfterTest
+	  public void afterTest() {
+		  driver.close();
+	  }
+  @Test
+  public void testMethod() {
+	  //navigate to home page
+	  driver.get("https://lkmdemoaut.accenture.com/TestMeApp/fetchcat.htm");
+	  System.out.println("Page Title: " + driver.getTitle());
+	  System.out.println("Page URL: " + driver.getCurrentUrl());
+	  //navigate to login page from home page
+	  
+	  driver.get("https://lkmdemoaut.accenture.com/TestMeApp/login.htm");
+	  System.out.println("Page Title: " + driver.getTitle());
+	  System.out.println("Page URL: " + driver.getCurrentUrl());
+	  //navigate back to home page
+	  
+	  driver.navigate().back();
+	  System.out.println("Page Title: " + driver.getTitle());
+	  System.out.println("Page URL: " + driver.getCurrentUrl());
+	  //refresh the browser
+	  
+	  driver.navigate().refresh();	  
+	  
+  }
+}
