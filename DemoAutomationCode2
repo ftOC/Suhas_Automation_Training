@@ -1,0 +1,52 @@
+package tests;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import util.DriverUtil;
+
+public class Testautomationclass01 {
+	
+	 WebDriver driver;
+	
+	@BeforeTest
+	  public void beforeTest() {
+		driver=DriverUtil.getBroswerInstance("chrome");
+		  driver.manage().window().maximize();  
+		  driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+	  }
+
+	  //@AfterTest
+	  //public void afterTest() {
+		  //driver.close();
+	  //}
+	
+	
+  @Test
+  public void LoginTest() {
+	  driver.get("https://lkmdemoaut.accenture.com/TestMeApp/fetchcat.htm");
+	  Assert.assertEquals(driver.getTitle(), "Home");
+	  
+	  driver.findElement(By.linkText("SignIn")).click();
+	  Assert.assertEquals(driver.getTitle(), "Login");
+	  
+	  WebElement userNameTxt = driver.findElement(By.id("userName"));
+	  userNameTxt.sendKeys("testuser01");
+	  
+	  WebElement passwordTxt = driver.findElement(By.id("password"));
+	  passwordTxt.sendKeys("pass123");
+	  
+	  WebElement loginBtn = driver.findElement(By.name("Login"));
+	  loginBtn.click();
+	  
+  }
+  
+
+}
