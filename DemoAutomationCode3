@@ -1,41 +1,53 @@
 package tests;
 
-import org.testng.annotations.Test;
-
-import util.DriverUtil;
-
-import org.testng.annotations.BeforeTest;
-
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
-public class Testautomationclass03 {
-	
-	WebDriver driver;
- 
-  @BeforeTest
-  public void beforeTest() {
-	  driver=DriverUtil.getBroswerInstance("chrome");
-	  driver.manage().window().maximize();  
-	  driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
-  }
+import util.DriverUtil;
 
-  @AfterTest
-  public void afterTest() {
-	  driver.close();
-  }
-
-  @Test
-  public void LoginLogoutusingCSSSelector() {
-	  driver.get("https://lkmdemoaut.accenture.com/TestMeApp/fetchcat.htm");
-	  driver.findElement(By.cssSelector("a[href='login.htm']")).click();
-	  driver.findElement(By.cssSelector("input#userName")).sendKeys("testuser01");
-	  driver.findElement(By.cssSelector("input#password")).sendKeys("pass123");
-	  driver.findElement(By.cssSelector("input[value='Login']")).click();
+public class Testautomationclass02 {
 	  
-	    
+	 WebDriver driver;
+	
+	@BeforeTest
+	  public void beforeTest() {
+		driver=DriverUtil.getBroswerInstance("chrome");
+		  driver.manage().window().maximize();  
+		  driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+	  }
+
+	  @AfterTest
+	  public void afterTest() {
+		  driver.close();
+	  }
+	  
+  @Test
+  public void dealwithmultiplelinks() {
+	  driver.get("https://lkmdemoaut.accenture.com/TestMeApp/fetchcat.htm");
+	  Assert.assertEquals(driver.getTitle(), "Home");
+	  /*look for all the elements with tag name 'a' which
+	  represents hyperlink, and store it in a List*/
+	  
+	  List<WebElement> allLinks = driver.findElements(By.tagName("a"));
+	  int countOfLinks = allLinks.size();
+	  
+	  System.out.println("There are " + countOfLinks + " number of Links");
+	  
+	  for(int i=0; i<countOfLinks; i++) {
+		  String textValue = allLinks.get(i).getText();
+		  String hrefValue = allLinks.get(i).getAttribute("href");
+		  System.out.println(textValue + ": " + hrefValue);
+	  }
+	  
   }
+  
+
 }
