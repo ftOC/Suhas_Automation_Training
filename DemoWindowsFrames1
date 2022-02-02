@@ -1,0 +1,49 @@
+package tests;
+
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import util.DriverUtil;
+
+public class Windows_Frames_1 {
+	WebDriver driver;
+	 
+	  @BeforeTest
+	  public void beforeTest() {
+		  driver=DriverUtil.getBroswerInstance("chrome");
+		  driver.get("http://demo.automationtesting.in/Windows.html");
+		  driver.manage().window().maximize();  
+		  driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	  }
+
+	  @AfterTest
+	  public void afterTest() {
+		  //driver.close();
+		  driver.quit();
+	  }
+  @Test
+  public void testMultipleWindows() {
+	  
+	  driver.findElement(By.partialLinkText("click")).click();
+	  
+	  String homeWindow = driver.getWindowHandle();//returns current window reference id
+	  //returns all the windows reference id's and store in a collection
+	  Set<String> windows = driver.getWindowHandles();
+	  //to switch focus to the second window
+	  driver.switchTo().window(windows.toArray()[1].toString());
+	 
+	  driver.findElement(By.linkText("Downloads")).click();
+	  //to switch back the focus to first window
+	 
+	  driver.switchTo().window(windows.toArray()[0].toString());
+	  
+	  
+	
+  }
+}
