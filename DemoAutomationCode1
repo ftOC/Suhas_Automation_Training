@@ -1,0 +1,38 @@
+package tests;
+
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import util.DriverUtil;
+
+public class Launchbroswer {
+	
+	WebDriver driver;
+  @Test
+  public void demowebshop() {
+	  driver.get("https://lkmdemoaut.accenture.com/TestMeApp/fetchcat.htm");
+	  //Assert.assertEquals(driver.getTitle(),"Home");
+  }
+  @BeforeTest
+  public void beforeTest() {
+	  //System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
+	  //driver=new ChromeDriver();
+	  //driver.manage().window().maximize();//to maximize window
+	  
+ /*or instead of manually writing above three lines
+ use the utility class(DriverUtil.java) which u have created to 
+  directly invoke the chrome driver as shown below*/
+	  
+	  driver=DriverUtil.getBroswerInstance("chrome");
+	  driver.manage().window().maximize();
+  }
+
+  @AfterTest
+  public void afterTest() {
+	  driver.close();
+  }
+
+}
