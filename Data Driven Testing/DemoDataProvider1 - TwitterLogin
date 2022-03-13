@@ -1,0 +1,67 @@
+
+package DDT;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import util.DriverUtil;
+public class DemoDataProvider1 {
+	WebDriver driver = null;
+	
+	@BeforeTest
+	public void setUpTest() {
+		driver=DriverUtil.getBroswerInstance("chrome");
+		  driver.manage().window().maximize();  
+		  driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+	}
+	@Test(dataProvider = "testdata1")
+	public void test1(String username, String password) {
+		System.out.println(username+"  |  "+password);
+		driver.get("https://twitter.com");
+		  //click on sign in button
+		  driver.findElement(By.xpath("//*[@id=\"react-root\"]/div/div/div/main/div/div/div/div[1]/div/div[3]/div[5]/a/div/span/span")).click();
+		  
+		  //enter username
+		  driver.findElement(By.xpath("//*[@id=\"layers\"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[5]/label/div/div[2]/div/input")).sendKeys(username);
+		  
+		  //click next button
+		  driver.findElement(By.xpath("//*[@id=\"layers\"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[6]")).click();
+		  
+		//enter password
+		  driver.findElement(By.xpath("//*[@id=\"layers\"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[3]/div/label/div/div[2]/div[1]/input")).sendKeys(password);
+	}
+	@DataProvider(name = "testdata1")
+	public Object[][] getData() {
+		String excelPath = "D:/Programming/JAVA/Demo_webdriver/excel/excel_DDT_1.xlsx";  //absolute path of excel sheet
+		Object data[][] = testData(excelPath, "Sheet1");
+		return data;
+	}
+	
+	
+	public static Object[][] testData(String excelPath, String sheetName) {
+		DataProvider1 dp = new DataProvider1(excelPath, sheetName);
+		
+		int rowCount = dp.getRowCount();
+		int colCount = dp.getColumnCount();
+		
+		Object data[][] = new Object[rowCount-1][colCount]; //rowCount-1 because first row will be header
+		
+		for(int i=1; i<rowCount; i++) //starts from 1 because row zero contains headers
+		{
+			for(int j=0; j<colCount; j++)
+			{
+				String cellData = dp.getCellDataString(i,j);
+				//System.out.print(cellData+" | ");
+				data[i-1][j] = cellData;  //i-1 because first row will be header
+			}
+			System.out.println();
+		}
+		return data;
+	}
+
+}
