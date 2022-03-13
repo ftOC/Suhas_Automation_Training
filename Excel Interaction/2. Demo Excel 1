@@ -1,0 +1,16 @@
+package excels;
+
+public class Demoexcel1 {
+	
+	public static void main(String[] args) {
+		String projectPath = System.getProperty("user.dir");  //to get path of the project
+		excel1 excel = new excel1(projectPath+"/excel/excel1.xlsx", "Sheet1");
+		//Absolute path fpr excel can also be used in above statement
+		
+		excel.getRowCount();
+		excel.getCellDataString(0,0);
+		excel.getCellDataNumeric(1,1);
+		
+	}
+
+}
