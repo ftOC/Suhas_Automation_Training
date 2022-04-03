@@ -11,10 +11,21 @@ Extent Report:
 
 3. Extent Report opened in browser with graphical view:
 
+![Screenshot (3)](https://user-images.githubusercontent.com/98903088/161429309-3ccb0132-5269-429c-90fb-67a722696820.png)
+
+
 4. ScreenShot in JAVA IDE:
+
+
 
 5. Extent report consisting the ScreenShot:
 
+
+
 6. Extent report consisting the ScreenShot with customized title and Theme:
 
+
+
 7. Extent report consisting the ScreenShot with customized title and Theme in graphical view:
+
+
