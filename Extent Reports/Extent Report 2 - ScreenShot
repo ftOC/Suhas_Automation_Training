@@ -1,4 +1,3 @@
-
 package ExtentReports;
 
 import java.io.File;
@@ -46,7 +45,7 @@ public class ExtentReport1 {
 	   
 	   reports = new ExtentReports();
 	   reports.attachReporter(sparkReporter);
-	
+	   
    }
 
   @Test(priority=1)
@@ -100,6 +99,5 @@ public class ExtentReport1 {
  {
 	 driver.close();
 	 reports.flush();
- }
- 
+ } 
 }
