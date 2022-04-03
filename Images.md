@@ -2,7 +2,7 @@ Extent Report:
 
 1. Extent Report in JAVA IDE:
 
-
+![Screenshot (1)](https://user-images.githubusercontent.com/98903088/161429003-88e60d32-c229-43e5-a4b9-061dc8dfa7a9.png)
 
 
 2. Extent Report opened in browser:
