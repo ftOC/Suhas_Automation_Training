@@ -60,11 +60,12 @@ public class ExtentReport1 {
 	  driver.manage().window().maximize();
 	  Assert.assertEquals(driver.getTitle(), "Home");	     
   }
-  @Test(priority=2)   //fail scenario
+  @Test(priority=2)  //fail scenario
   public void testGoogleHomePage()
   {
 	  testLog = reports.createTest("Google Home Page");
 	  driver.get("https://www.google.com");
+
 	  Assert.assertEquals(driver.getTitle(), "Chrome");
   }
  
@@ -102,6 +103,5 @@ public class ExtentReport1 {
  {
 	 driver.close();
 	 reports.flush();
- }
- 
+ } 
 }
