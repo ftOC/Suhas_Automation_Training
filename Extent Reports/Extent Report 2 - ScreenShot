@@ -101,3 +101,9 @@ public class ExtentReport1 {
 	 reports.flush();
  } 
 }
+
+
+o/p:
+Check for attachment number 4 & 5 under Extent reports section in images folder of this repository
+
+
